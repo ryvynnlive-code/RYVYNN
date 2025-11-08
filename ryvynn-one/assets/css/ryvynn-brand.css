@@ -1,0 +1,7 @@
+:root{
+  --ryvynn-flame-top:#00F0D8; --ryvynn-flame-mid:#0088FF; --ryvynn-flame-bottom:#3A00A4;
+  --ryvynn-bg:#0A0A0A; --ryvynn-surface:#0F0F12; --ryvynn-muted:#BFDDE8;
+}
+.bg-ryvynn-gradient{
+  background: linear-gradient(180deg,var(--ryvynn-flame-top) 0%,var(--ryvynn-flame-mid) 55%,var(--ryvynn-flame-bottom) 100%);
+}

@@ -1,0 +1,30 @@
+{
+  "last_reminder": 0,
+  "cached_at": 1760784716083,
+  "version": "6.17.1",
+  "cli_path": "/data/data/com.termux/files/home/ryvynn-one/node_modules/.pnpm/prisma@6.17.1_typescript@5.9.3/node_modules/prisma/build/index.js",
+  "output": {
+    "product": "prisma",
+    "previous_version": "6.17.1",
+    "checkpoint_version": 4,
+    "local_timestamp_without_timezone": "2025-10-18T03:51:55Z",
+    "current_version": "6.17.1",
+    "current_release_date": 1760106761,
+    "client_event_id": "1b946449-1dd7-4c49-aee3-be756e7af32f",
+    "current_download_url": "https://github.com/prisma/prisma",
+    "package": "prisma",
+    "release_tag": "latest",
+    "install_command": "npm install --save-dev prisma",
+    "schema_providers": [
+      "postgresql"
+    ],
+    "schema_preview_features": [],
+    "schema_generators_providers": [
+      "prisma-client-js"
+    ],
+    "current_changelog_url": "https://github.com/prisma/prisma",
+    "outdated": false,
+    "project_website": "https://prisma.io",
+    "alerts": []
+  }
+}

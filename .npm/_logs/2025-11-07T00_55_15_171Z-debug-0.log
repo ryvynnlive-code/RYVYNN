@@ -1,0 +1,24 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@11.6.0
+2 info using node@v24.9.0
+3 silly config load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/data/com.termux/files/home/nexxt-space-landing/.npmrc
+5 silly config load:file:/data/data/com.termux/files/home/.npmrc
+6 silly config load:file:/data/data/com.termux/files/usr/etc/npmrc
+7 verbose title npm exec create-next-app@latest . --ts
+8 verbose argv "exec" "--" "create-next-app@latest" "." "--ts"
+9 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2025-11-07T00_55_15_171Z-
+10 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2025-11-07T00_55_15_171Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 silly packumentCache heap:1055916032 maxSize:263979008 maxEntrySize:131989504
+14 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules/next
+15 http fetch GET 200 https://registry.npmjs.org/create-next-app 559ms (cache revalidated)
+16 silly packumentCache heap:1055916032 maxSize:263979008 maxEntrySize:131989504
+17 silly packumentCache heap:1055916032 maxSize:263979008 maxEntrySize:131989504
+18 verbose cwd /data/data/com.termux/files/home/nexxt-space-landing/ryvynn-app
+19 verbose os Linux 5.15.180-android13-8-00004-gb17f7a1bdf11-ab13511974
+20 verbose node v24.9.0
+21 verbose npm  v11.6.0
+22 verbose exit 0
+23 info ok

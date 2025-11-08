@@ -1,0 +1,207 @@
+[ERROR] Failed to save config with lock: Error: ENOENT: no such file or directory, lstat '/data/data/com.termux/files/home/.claude.json'
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238156
+[DEBUG] Setting permissions for new file: 600
+[DEBUG] Temp file written successfully, size: 103 bytes
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238156 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238273
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 183 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238273 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238311
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 220 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445238311 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+[DEBUG] >>>>> getSkillsIfEnabled() CALLED <<<<<
+[DEBUG] ENABLE_SKILLS value: true, type: boolean
+[DEBUG] ENABLE_SKILLS check passed, loading skills...
+[DEBUG] Loading skills from directories: managed=/etc/claude-code/.claude/skills, user=/data/data/com.termux/files/home/.claude/skills, project=/data/data/com.termux/files/home/.claude/skills
+[DEBUG] >>>>> getPluginSkills CALLED <<<<<
+[DEBUG] Creating shell snapshot for bash (/data/data/com.termux/files/usr/bin/bash)
+[DEBUG] Looking for shell config file: /data/data/com.termux/files/home/.bashrc
+[DEBUG] Shell config file not found: /data/data/com.termux/files/home/.bashrc, creating snapshot with Claude Code defaults only
+[DEBUG] Snapshots directory: /data/data/com.termux/files/home/.claude/shell-snapshots
+[DEBUG] Creating snapshot at: /data/data/com.termux/files/home/.claude/shell-snapshots/snapshot-bash-1761445238605-6ygtdo.sh
+[DEBUG] Shell binary exists: true
+[DEBUG] Execution timeout: 10000ms
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude/todos/cd973c3a-837f-4bed-844b-2d3a473a78b0-agent-cd973c3a-837f-4bed-844b-2d3a473a78b0.json.tmp.14296.1761445238635
+[DEBUG] Temp file written successfully, size: 2 bytes
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude/todos/cd973c3a-837f-4bed-844b-2d3a473a78b0-agent-cd973c3a-837f-4bed-844b-2d3a473a78b0.json.tmp.14296.1761445238635 to /data/data/com.termux/files/home/.claude/todos/cd973c3a-837f-4bed-844b-2d3a473a78b0-agent-cd973c3a-837f-4bed-844b-2d3a473a78b0.json
+[DEBUG] File /data/data/com.termux/files/home/.claude/todos/cd973c3a-837f-4bed-844b-2d3a473a78b0-agent-cd973c3a-837f-4bed-844b-2d3a473a78b0.json written atomically
+[DEBUG] getPluginSkills: Processing 0 enabled plugins
+[DEBUG] Total plugin skills loaded: 0
+[DEBUG] Total plugin commands loaded: 0
+[DEBUG] Registered 0 hooks from 0 plugins
+[DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, duplicates removed: 0)
+[DEBUG] getSkillsIfEnabled returning: 0 skill dir commands, 0 plugin skills
+[DEBUG] Total plugin agents loaded: 0
+[DEBUG] rg error (signal=undefined, code=ENOENT, stderr: ), 0 results
+[ERROR] Error: Error: spawn /data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-android/rg ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    at onErrorNT (node:internal/child_process:484:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[DEBUG] Shell snapshot created successfully (366 bytes)
+[DEBUG] Ripgrep first use test: FAILED (mode=builtin, path=/data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/arm64-android/rg)
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239252
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32315 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239252 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239329
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32397 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239329 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239342
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32427 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445239342 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[ERROR] Error streaming, falling back to non-streaming mode: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+[ERROR] Error in non-streaming fallback: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+[ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at uy.validateHeaders (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:357:930)
+    at uy.buildHeaders (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:357:8412)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async uy.buildRequest (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:357:7470)
+    at async uy.makeRequest (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:357:3309)
+    at async qtA.model (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3356:18846)
+    at async qtA (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:2685:39781)
+    at async vb2 (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3356:19014)
+    at async file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3356:13007
+    at async Bo1 (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3356:4492)
+[DEBUG] Skipping SubagentStop hook execution - workspace trust not accepted
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445265007
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32427 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445265007 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445265025
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32427 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445265025 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] BigQuery metrics exporter flush complete
+[DEBUG] Telemetry flushed successfully
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445282931
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32427 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445282931 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445282962
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32427 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445282962 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283264
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32715 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283264 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283485
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32848 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283485 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283675
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32909 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761445283675 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Skipping Notification hook execution - workspace trust not accepted
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452224377
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 32980 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452224377 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Failed to fetch Grove notice config: Error: getaddrinfo ENOTFOUND api.anthropic.com
+[DEBUG] Unknown platform detected, using default paths
+[DEBUG] Unknown platform detected, using default paths
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233018
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 33011 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233018 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233060
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 33031 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233060 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Skipping SessionStart:startup hook execution - workspace trust not accepted
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233376
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 33067 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233376 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] Writing to temp file: /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233388
+[DEBUG] Preserving file permissions: 100600
+[DEBUG] Temp file written successfully, size: 33545 bytes
+[DEBUG] Applied original permissions to temp file
+[DEBUG] Renaming /data/data/com.termux/files/home/.claude.json.tmp.14296.1761452233388 to /data/data/com.termux/files/home/.claude.json
+[DEBUG] File /data/data/com.termux/files/home/.claude.json written atomically
+[DEBUG] AutoUpdaterWrapper: Installation type: npm-global, using native: false
+[DEBUG] performStartupChecks called
+[DEBUG] Trust not accepted for current directory - skipping plugin installations
+[DEBUG] Skills and commands included in Skill tool:
+[DEBUG] Slash commands included in SlashCommand tool:
+[DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+[ERROR] Error: Error: getaddrinfo ENOTFOUND raw.githubusercontent.com
+    at eo.from (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:11:15035)
+    at UE.<anonymous> (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:29:10009)
+    at UE.emit (node:events:508:28)
+    at UE.emit (node:domain:489:12)
+    at ZQ1.<computed> (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:28:1117)
+    at ClientRequest.emit (node:events:520:35)
+    at ClientRequest.emit (node:domain:489:12)
+    at emitErrorEvent (node:_http_client:107:11)
+    at TLSSocket.socketErrorListener (node:_http_client:574:5)
+    at TLSSocket.emit (node:events:508:28)
+    at g3A.request (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:31:2129)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Yc1 (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:2204:114)
+[ERROR] Error: Error: Connection error.
+    at uy.makeRequest (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:357:4452)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async XFA (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:1311:8767)
+    at async XzA (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3346:1031)
+    at async SA1 (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3346:1240)
+    at async zb2 (file:///data/data/com.termux/files/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js:3356:531)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] Metrics opt-out API response: enabled=true
+[DEBUG] BigQuery metrics exported successfully
+[DEBUG] API Response: {
+  "accepted_count": 1,
+  "rejected_count": 0
+}
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)
+[DEBUG] npm view failed with code 1
+[DEBUG] npm stderr: (empty)

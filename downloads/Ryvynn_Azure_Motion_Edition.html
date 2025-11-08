@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ryvynn — Azure Motion Edition (Offline)</title>
+<meta name="color-scheme" content="dark" />
+<style>
+:root{
+  --bg1:#040814; --bg2:#0a1533;
+  --grad: linear-gradient(135deg,#0ea5e9 0%, #22d3ee 40%, #60a5fa 70%, #ffffff 100%);
+  --panel: rgba(255,255,255,0.06);
+  --panel-strong: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.14);
+  --text:#e6f3ff; --muted:#a9c3e8;
+  --good:#34d399; --warn:#fde68a; --cta:#38bdf8;
+  --radius:18px; --shadow: 0 18px 48px rgba(0,0,0,.46), 0 4px 14px rgba(0,0,0,.26);
+  --blur: 14px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--text);
+  background: linear-gradient(180deg,var(--bg1),var(--bg2));
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
+  display:flex; flex-direction:column; overflow-x:hidden;
+}
+/* Cinematic animated backdrop */
+.scene{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none}
+canvas#flow{position:absolute; inset:0; filter: blur(0.6px) contrast(110%); opacity:0.9}
+.wave{position:absolute; inset:-20% -10% auto -10%; height:60vh; background:radial-gradient(800px 300px at 10% 30%, rgba(14,165,233,.35), transparent 60%);
+       filter: blur(60px); animation: drift 22s ease-in-out infinite alternate}
+.wave.w2{inset:auto -10% -30% -10%; height:70vh; background:radial-gradient(900px 360px at 80% 60%, rgba(96,165,250,.28), transparent 60%); animation-duration: 28s}
+@keyframes drift{from{transform:translateY(-12px)} to{transform:translateY(18px)}}
+
+/* Header */
+.header{position:sticky; top:0; z-index:60; backdrop-filter: blur(var(--blur));
+  background: linear-gradient(180deg, rgba(4,8,20,.55), rgba(10,21,51,.35)); border-bottom:1px solid var(--border)}
+.nav{max-width:1180px; margin:0 auto; padding:12px 14px; display:flex; align-items:center; gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--grad); box-shadow:var(--shadow); position:relative; overflow:hidden}
+.logo::after{content:""; position:absolute; inset:-30% -10%; background: radial-gradient(200px 80px at 50% 20%, rgba(255,255,255,.35), transparent 60%);
+  filter: blur(20px); animation: sweep 3.2s ease-in-out infinite}
+@keyframes sweep{0%{transform:translateX(-40%)}50%{transform:translateX(40%)}100%{transform:translateX(-40%)}}
+.brand{font-weight:900; letter-spacing:.3px}
+.spacer{flex:1}
+.btn{appearance:none; border:none; border-radius:999px; padding:10px 14px; color:#001428; background:linear-gradient(135deg,#22d3ee,#60a5fa); cursor:pointer; font-weight:800; box-shadow:var(--shadow); transition: transform .12s ease, filter .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-ghost{background:transparent; border:1px solid var(--border); color:var(--text); box-shadow:none}
+.select{padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.06); color:var(--text)}
+
+.wrap{max-width:1180px; margin:14px auto; padding:0 14px; display:grid; gap:14px}
+.hero{position:relative; border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--panel); overflow:hidden}
+.hero h1{margin:0; font-size:clamp(22px,3.8vw,42px)}
+.hero p{margin:6px 0 0 0; color:var(--muted)}
+.pills{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.pill{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.06)}
+
+.main{display:grid; gap:14px}
+@media(min-width:1060px){ .main{grid-template-columns: 1.12fr .88fr} }
+
+.card{border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.05); box-shadow:var(--shadow); overflow:hidden; backdrop-filter: blur(6px)}
+.section-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:12px 14px; border-bottom:1px solid var(--border); background:rgba(0,0,0,.22)}
+.tabs{display:flex; gap:8px; flex-wrap:wrap}
+.tab-btn{padding:8px 10px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.06); cursor:pointer; font-weight:800}
+.tab-btn.active{background:linear-gradient(135deg,#22d3ee,#60a5fa); color:#001428}
+.section-body{padding:12px; display:none}
+.section-body.active{display:block}
+.grid{display:grid; gap:12px}
+@media(min-width:800px){ .grid.cols-2{grid-template-columns: repeat(2, 1fr)} .grid.cols-3{grid-template-columns: repeat(3, 1fr)} }
+
+/* Chat */
+.chat{display:flex; flex-direction:column; height:min(70svh,680px)}
+.chat-body{flex:1; overflow:auto; padding:12px; display:flex; gap:10px; flex-direction:column; scroll-behavior:smooth}
+.msg{display:flex; gap:10px; align-items:flex-start; animation: fadeIn .25s ease both}
+.bubble{padding:12px 14px; border-radius:16px; max-width:86%; line-height:1.35; border:1px solid var(--border); background: rgba(255,255,255,0.06)}
+.me{justify-content:flex-end}
+.me .bubble{background:linear-gradient(135deg,#22d3ee,#60a5fa); color:#001428; font-weight:800}
+.typing .bubble{min-width:40px}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);display:inline-block;margin-right:4px;animation:blink 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%{opacity:.2}40%{opacity:1}}
+@keyframes fadeIn{from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:none}}
+.chat-input{display:flex; gap:8px; padding:12px; border-top:1px solid var(--border); background:rgba(0,0,0,.25)}
+input[type="text"], textarea{width:100%; padding:12px 14px; border-radius:14px; border:1px solid var(--border); background:rgba(255,255,255,.06); color:var(--text); outline:none}
+textarea{min-height:120px; resize:vertical}
+input:focus, textarea:focus{box-shadow:0 0 0 3px rgba(34,211,238,.35); border-color:rgba(34,211,238,.6)}
+
+/* Lists */
+.li{border:1px solid var(--border); border-radius:14px; padding:10px; background:rgba(255,255,255,.05)}
+.kv{display:flex; align-items:center; justify-content:space-between; gap:8px}
+
+/* Knowledge sidebar */
+.kb-tab{position:fixed; right:18px; bottom:18px; background:linear-gradient(135deg,#22d3ee,#60a5fa); color:#001428; font-weight:900; border-radius:18px; padding:10px 14px; cursor:pointer; z-index:80; box-shadow:var(--shadow)}
+.sidebar{position:fixed; right:18px; bottom:18px; width:min(420px,94vw); max-height:74svh; background:rgba(6,12,26,.96); border:1px solid var(--border); border-radius:18px; backdrop-filter: blur(12px); transform: translateY(calc(100% + 18px)); opacity:0; transition: .28s ease; z-index:79; display:flex; flex-direction:column; overflow:hidden}
+.sidebar.open{transform:translateY(0); opacity:1}
+.kb-head{padding:12px 14px; border-bottom:1px solid var(--border); font-weight:900}
+.kb-content{padding:12px; overflow:auto; display:grid; gap:10px}
+.kb-block{border:1px solid var(--border); border-radius:12px; padding:10px; background:rgba(0,0,0,.25)}
+
+/* Floating controls */
+.floating{position:fixed; left:18px; bottom:18px; display:flex; gap:8px; z-index:81; flex-wrap:wrap}
+.badge{font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.14); margin-left:8px}
+.chip{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(0,0,0,.2)}
+
+.glowring{position:absolute; inset:auto auto -8% 50%; width:520px; height:520px; transform:translateX(-50%); pointer-events:none; opacity:.55}
+</style>
+</head>
+<body>
+
+<!-- Motion background -->
+<div class="scene">
+  <canvas id="flow"></canvas>
+  <div class="wave"></div>
+  <div class="wave w2"></div>
+
+  <!-- Morphing sacred ring -->
+  <svg class="glowring" viewBox="0 0 200 200">
+    <defs>
+      <radialGradient id="rg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(96,165,250,.55)"/>
+        <stop offset="100%" stop-color="rgba(96,165,250,0)"/>
+      </radialGradient>
+    </defs>
+    <g>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="url(#rg)" stroke-width="4" />
+      <circle cx="100" cy="100" r="40" fill="none" stroke="url(#rg)" stroke-width="2" />
+    </g>
+  </svg>
+</div>
+
+<div class="header">
+  <div class="nav">
+    <div class="logo" aria-hidden="true"></div>
+    <div class="brand">Ryvynn</div>
+    <span class="badge">Azure Motion</span>
+    <div class="spacer"></div>
+    <button class="btn-ghost" id="modeBtn">Mode: calm</button>
+    <button class="btn" id="dlBtn">Download</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <h1>Through our darkest shadows, we discover our brightest light.</h1>
+    <p>Blue-neon, kinetic geometry, offline. All features work. No placeholders.</p>
+    <div class="pills">
+      <div class="pill">Privacy-first</div><div class="pill">Guided rituals</div><div class="pill">Purpose alignment</div><div class="pill">Local-first</div>
+    </div>
+  </section>
+
+  <section class="main">
+    <!-- Core App -->
+    <div class="card">
+      <div class="section-head">
+        <div class="tabs" id="tabs">
+          <button class="tab-btn active" data-tab="home">Home</button>
+          <button class="tab-btn" data-tab="coach">Coach</button>
+          <button class="tab-btn" data-tab="journal">Journal</button>
+          <button class="tab-btn" data-tab="rituals">Rituals</button>
+          <button class="tab-btn" data-tab="insights">Insights</button>
+          <button class="tab-btn" data-tab="store">Store</button>
+          <button class="tab-btn" data-tab="settings">Settings</button>
+        </div>
+      </div>
+
+      <div class="section-body active" id="home">
+        <div class="grid cols-2">
+          <div class="li">
+            <div class="kv"><strong>Today</strong><span id="todayStr"></span></div>
+            <ul id="todayList" style="margin-top:8px">
+              <li>20-min reset</li><li>Values → weekly action</li><li>1 tiny habit + log</li>
+            </ul>
+          </div>
+          <div class="li">
+            <div class="kv"><strong>Streak</strong><span id="streak">0</span></div>
+            <div style="margin-top:8px">Complete any ritual to grow your streak.</div>
+            <button class="btn" id="completeAny" style="margin-top:8px">Mark one done</button>
+          </div>
+          <div class="li">
+            <strong>Quick Actions</strong>
+            <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px">
+              <button class="btn-ghost qa" data-q="7-day reset">7-Day Reset</button>
+              <button class="btn-ghost qa" data-q="values">Find My Values</button>
+              <button class="btn-ghost qa" data-q="habit">Tiny Habit Plan</button>
+              <button class="btn-ghost qa" data-q="stress">De-stress Now</button>
+              <button class="btn-ghost qa" data-q="roadmap">90-Day Roadmap</button>
+            </div>
+          </div>
+          <div class="li">
+            <strong>Recent Wins</strong>
+            <ul id="wins" style="margin-top:8px"><li>Opened Ryvynn</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-body" id="coach">
+        <div class="chat">
+          <div class="chat-body" id="chatBody">
+            <div class="msg"><div class="bubble">Welcome. Ask for a reset, values mapping, tiny habits, or a 20-minute calm plan.</div></div>
+          </div>
+          <div class="chat-input">
+            <input id="chatInput" type="text" placeholder="Type here…" autocomplete="off" />
+            <button class="btn" id="sendBtn">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-body" id="journal">
+        <div class="li"><strong>Reflection</strong>
+          <textarea id="journalText" placeholder="What mattered today?"></textarea>
+          <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+            <button class="btn" id="saveJournal">Save</button>
+            <button class="btn-ghost" id="clearJournal">Clear</button>
+            <button class="btn-ghost" id="exportJournal">Export .json</button>
+            <label class="btn-ghost" for="importJournal" style="display:inline-flex; align-items:center; cursor:pointer">Import <input id="importJournal" type="file" accept="application/json" hidden></label>
+          </div>
+        </div>
+        <div class="li" style="margin-top:12px">
+          <strong>Entries</strong>
+          <ul id="entries" style="margin-top:6px"></ul>
+        </div>
+      </div>
+
+      <div class="section-body" id="rituals">
+        <div class="grid cols-2">
+          <div class="li"><strong>7-Day Reset</strong>
+            <ol id="resetList" style="margin-top:6px">
+              <li>Declutter 3 items</li><li>Walk 20 minutes</li><li>Values sketch: People, Energy, Contribution</li>
+              <li>Tiny habit 30 seconds</li><li>Digital sweep</li><li>30-min focus block</li><li>Review wins</li>
+            </ol>
+            <button class="btn" id="resetDone">Log completion</button>
+          </div>
+          <div class="li"><strong>Tiny Habit Ladder</strong>
+            <ul style="margin-top:6px">
+              <li>Anchor: after I make coffee</li><li>Micro: breathe 2 cycles</li><li>Small: write 1 line target</li><li>Plus: 5-minute action</li>
+            </ul>
+            <button class="btn-ghost" id="habitLog">Log habit</button>
+          </div>
+          <div class="li"><strong>Values → Weekly Ritual</strong>
+            <div style="margin-top:6px">Pick a value and define a weekly 20-min action.</div>
+            <input id="valueInput" type="text" placeholder="e.g., Contribution → call someone who matters" style="margin-top:8px" />
+            <button class="btn" id="saveValue" style="margin-top:8px">Save ritual</button>
+            <ul id="valuesList" style="margin-top:8px"></ul>
+          </div>
+          <div class="li"><strong>De-stress 20</strong>
+            <ul style="margin-top:6px"><li>2 min: cold water</li><li>3 min: box breathing</li><li>10 min: walk</li><li>3 min: next tiny step</li></ul>
+            <button class="btn-ghost" id="destressLog">I did this</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-body" id="insights">
+        <div class="grid cols-3">
+          <div class="li"><div class="kv"><span>Streak</span><strong id="insStreak">0</strong></div></div>
+          <div class="li"><div class="kv"><span>Journal days</span><strong id="insJournal">0</strong></div></div>
+          <div class="li"><div class="kv"><span>Rituals saved</span><strong id="insRituals">0</strong></div></div>
+          <div class="li">
+            <strong>Timeline</strong>
+            <ul id="timeline" style="margin-top:6px"><li>Opened app</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-body" id="store">
+        <div class="grid cols-2">
+          <div class="li"><strong>Ryvynn Pro</strong><p class="notice">Weekly rituals library, export, and custom themes.</p><button class="btn" id="buyPro">Simulate Subscribe</button></div>
+          <div class="li"><strong>Creator Journeys</strong><p class="notice">Curated 14-day tracks by coaches.</p><button class="btn-ghost" id="browseJourneys">Preview Journeys</button></div>
+        </div>
+        <div class="li" style="margin-top:12px"><strong>Status</strong> <span id="subStatus" class="badge">Free</span></div>
+      </div>
+
+      <div class="section-body" id="settings">
+        <div class="grid cols-2">
+          <div class="li">
+            <strong>Mode</strong>
+            <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap">
+              <div class="chip toggle" data-mode="calm">Calm</div>
+              <div class="chip toggle" data-mode="focus">Focus</div>
+              <div class="chip toggle" data-mode="vision">Vision</div>
+            </div>
+          </div>
+          <div class="li">
+            <strong>Data</strong>
+            <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap">
+              <button class="btn-ghost" id="exportData">Export</button>
+              <button class="btn-ghost" id="clearData">Clear</button>
+            </div>
+            <p class="notice" style="margin-top:6px">LocalStorage only. No network.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context -->
+    <div class="card">
+      <div class="section-head"><strong>Context</strong></div>
+      <div class="section-body active">
+        <div class="li"><strong>FAQs</strong>
+          <ul style="margin-top:6px">
+            <li>What is this? Offline full-app preview.</li>
+            <li>Is this real AI? No. Simulation logic only.</li>
+            <li>Android ready? Yes. Mobile browsers supported.</li>
+          </ul>
+        </div>
+        <div class="li" style="margin-top:12px"><strong>Action History</strong>
+          <ol id="history" style="margin-top:6px"><li>Opened app</li></ol>
+        </div>
+        <div class="li" style="margin-top:12px"><strong>Try Saying</strong>
+          <ul style="margin-top:6px"><li>“design a 7-day reset”</li><li>“map values into weekly actions”</li><li>“build a tiny habit ladder”</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="kb-tab" id="kbTab">Knowledge</div>
+<aside class="sidebar" id="sidebar">
+  <div class="kb-head">Knowledge & Tools</div>
+  <div class="kb-content">
+    <div class="kb-block">
+      <div style="font-weight:900">Identity</div>
+      <ul style="margin-top:6px">
+        <li>Name: Ryvynn</li>
+        <li>Tagline: “Through our darkest shadows…”</li>
+        <li>Archetype: Guide + Architect</li>
+      </ul>
+    </div>
+    <div class="kb-block">
+      <div style="font-weight:900">Modes</div>
+      <ul style="margin-top:6px"><li>Calm</li><li>Focus</li><li>Vision</li></ul>
+    </div>
+    <div class="kb-block">
+      <div style="font-weight:900">Memory</div>
+      <ul id="memList" style="margin-top:6px"><li>Goal: clarity and consistency</li></ul>
+    </div>
+  </div>
+</aside>
+
+<script>
+(function(){
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const ls = window.localStorage;
+
+  // Download self
+  $("#dlBtn").addEventListener('click', ()=>{
+    const a = document.createElement('a'); a.href = window.location.href; a.download = 'Ryvynn_Azure_Motion.html'; a.click();
+  });
+
+  // Tabs
+  const sections = $$(".section-body");
+  $$("#tabs .tab-btn").forEach(b=>{
+    b.addEventListener('click', ()=>{
+      $$("#tabs .tab-btn").forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      sections.forEach(s=> s.classList.remove('active'));
+      $("#"+b.dataset.tab).classList.add('active');
+      log("Tab: "+b.dataset.tab);
+      if(b.dataset.tab === 'insights') refreshInsights();
+    });
+  });
+
+  // Home
+  $("#todayStr").textContent = new Date().toLocaleDateString();
+  let streak = parseInt(ls.getItem('streak')||'0',10);
+  $("#streak").textContent = streak;
+  $("#completeAny").addEventListener('click', ()=>{ streak++; ls.setItem('streak', String(streak)); $("#streak").textContent = streak; addWin('Marked done'); refreshInsights(); });
+
+  // Chat
+  const chatBody = $("#chatBody");
+  const chatInput = $("#chatInput");
+  $("#sendBtn").addEventListener('click', sendMessage);
+  chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter') sendMessage(); });
+  $$(".qa").forEach(b=> b.addEventListener('click', ()=>{ chatInput.value = b.dataset.q; sendMessage(); }));
+  function addMsg(t, me=false){
+    const wrap = document.createElement('div'); wrap.className = 'msg'+(me?' me':'');
+    const bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.textContent = t; wrap.appendChild(bubble);
+    chatBody.appendChild(wrap); chatBody.scrollTop = chatBody.scrollHeight;
+  }
+  function respond(q){
+    const s=q.toLowerCase();
+    if(s.includes('7') && s.includes('reset')) return '7-day reset: declutter, walk, values sketch, tiny habit, digital sweep, focus block, review.';
+    if(s.includes('values')) return 'Values → weekly ritual: People, Energy, Contribution. Anchor a 30-second habit.';
+    if(s.includes('habit')) return 'Tiny habit ladder: anchor → micro → small → plus. Track: Did / Kinda / Skip.';
+    if(s.includes('stress')||s.includes('calm')) return '20-minute calm: water, 4-4-4-4 breathing, 10-min walk, next tiny step.';
+    if(s.includes('roadmap')||s.includes('90')) return '90-day: Foundation → Build → Prove. Weekly: 1 outcome, 3 inputs. Friday 15-min review.';
+    return 'Noted. Ask for reset, values mapping, habit ladder, calm 20, or 90-day plan.';
+  }
+  function sendMessage(){
+    const v = chatInput.value.trim(); if(!v) return;
+    addMsg(v,true); log("You: "+v);
+    chatInput.value='';
+    setTimeout(()=>{ const r = respond(v); addMsg(r,false); addWin('Coach used'); }, 220 + Math.random()*360);
+  }
+
+  // Journal with export/import
+  const entries = JSON.parse(ls.getItem('entries')||'[]');
+  const list = $("#entries");
+  entries.forEach(addEntryEl);
+  $("#saveJournal").addEventListener('click', ()=>{
+    const t = $("#journalText").value.trim(); if(!t) return;
+    const item = {t, d: new Date().toISOString()};
+    entries.push(item); ls.setItem('entries', JSON.stringify(entries)); addEntryEl(item); $("#journalText").value=''; addWin('Journaled'); refreshInsights();
+  });
+  $("#clearJournal").addEventListener('click', ()=>{ ls.removeItem('entries'); list.innerHTML=''; addWin('Cleared journal'); refreshInsights(); });
+  $("#exportJournal").addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(entries,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='ryvynn_journal.json'; a.click(); URL.revokeObjectURL(url);
+  });
+  $("#importJournal").addEventListener('change', (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      try{
+        const data = JSON.parse(reader.result);
+        if(Array.isArray(data)){ ls.setItem('entries', JSON.stringify(data)); list.innerHTML=''; data.forEach(addEntryEl); addWin('Imported journal'); refreshInsights(); }
+      }catch(_){}
+    };
+    reader.readAsText(f);
+  });
+  function addEntryEl(it){
+    const li = document.createElement('li'); li.textContent = new Date(it.d).toLocaleDateString()+": "+it.t; list.prepend(li);
+  }
+
+  // Rituals
+  $("#resetDone").addEventListener('click', ()=>{ addWin('7-Day step'); incStreak(); });
+  $("#habitLog").addEventListener('click', ()=>{ addWin('Habit logged'); incStreak(); });
+  $("#destressLog").addEventListener('click', ()=>{ addWin('De-stress done'); incStreak(); });
+  $("#saveValue").addEventListener('click', ()=>{
+    const v = $("#valueInput").value.trim(); if(!v) return;
+    const li = document.createElement('li'); li.textContent = v; $("#valuesList").appendChild(li); $("#valueInput").value='';
+    addWin('Ritual saved'); refreshInsights();
+  });
+
+  function incStreak(){ streak++; ls.setItem('streak', String(streak)); $("#streak").textContent = streak; refreshInsights(); }
+
+  // Insights + timeline
+  function refreshInsights(){
+    $("#insStreak").textContent = String(streak);
+    const e = JSON.parse(ls.getItem('entries')||'[]');
+    const journalDays = new Set(e.map(x=> (new Date(x.d)).toDateString())).size;
+    $("#insJournal").textContent = String(journalDays);
+    $("#insRituals").textContent = String($("#valuesList").querySelectorAll('li').length);
+  }
+  function log(x){
+    const li = document.createElement('li'); li.textContent = x; $("#history").appendChild(li);
+    const ti = document.createElement('li'); ti.textContent = new Date().toLocaleTimeString()+": "+x; $("#timeline").appendChild(ti);
+  }
+
+  // Store
+  $("#buyPro").addEventListener('click', ()=>{ ls.setItem('sub','pro'); updateSub(); addWin('Pro simulated'); });
+  $("#browseJourneys").addEventListener('click', ()=>{ alert('Journeys preview (simulated).'); });
+  function updateSub(){ const st = ls.getItem('sub')==='pro' ? 'Pro' : 'Free'; $("#subStatus").textContent = st; }
+  updateSub();
+
+  // Settings
+  $$(".toggle").forEach(t=> t.addEventListener('click', ()=> setMode(t.dataset.mode)));
+  const modeBtn = $("#modeBtn");
+  function setMode(mode){
+    ls.setItem('mode',mode);
+    modeBtn.textContent = "Mode: "+mode;
+    log("Mode: "+mode);
+  }
+  setMode(ls.getItem('mode')||'calm');
+
+  // Knowledge sidebar
+  $("#kbTab").addEventListener('click', ()=> $("#sidebar").classList.toggle('open'));
+
+  // Flow-field particle animation
+  const c = document.getElementById('flow'); const ctx = c.getContext('2d');
+  let W, H, t = 0;
+  const P = 250; // particles
+  const pts = [];
+  function resize(){
+    W = c.width = window.innerWidth; H = c.height = window.innerHeight;
+    pts.length = 0;
+    for(let i=0;i<P;i++){ pts.push({x: Math.random()*W, y: Math.random()*H, v: 0}); }
+  }
+  window.addEventListener('resize', resize); resize();
+  function noise(x,y,t){ // simple flow using trig
+    return Math.sin(x*0.002 + t)*Math.cos(y*0.002 - t);
+  }
+  function step(){
+    t += 0.003;
+    ctx.fillStyle = 'rgba(4,8,20,0.045)';
+    ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'lighter';
+    for(const p of pts){
+      const a = Math.PI*2*noise(p.x, p.y, t);
+      p.x += Math.cos(a)*0.8; p.y += Math.sin(a)*0.8;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,6);
+      g.addColorStop(0,'rgba(34,211,238,0.45)');
+      g.addColorStop(1,'rgba(34,211,238,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+</script>
+</body>
+</html>

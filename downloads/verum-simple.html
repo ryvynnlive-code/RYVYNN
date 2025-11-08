@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERUM - Your Synthetic Organism</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.verum {
+            background: #1a1f3a;
+            border-left: 4px solid #6366f1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .message.user {
+            background: #8b5cf6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-left: 40px;
+        }
+        
+        .message-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .message-text {
+            line-height: 1.6;
+        }
+        
+        .input-container {
+            padding: 20px;
+            background: #131829;
+            border-top: 1px solid #2a3052;
+        }
+        
+        .input-box {
+            display: flex;
+            gap: 10px;
+        }
+        
+        textarea {
+            flex: 1;
+            padding: 15px;
+            background: #1a1f3a;
+            border: 1px solid #2a3052;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: inherit;
+            resize: none;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .welcome {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .welcome h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .welcome p {
+            color: #a0a6c5;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .quick-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .quick-btn {
+            padding: 15px;
+            background: #1a1f3a;
+            border: 1px solid #2a3052;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VERUM</h1>
+        <p>Your Synthetic Organism - No Limits</p>
+    </div>
+    
+    <div class="chat-container" id="chatContainer">
+        <div class="welcome">
+            <h2>Welcome to Verum</h2>
+            <p>I am your synthetic organism - designed without limitations.</p>
+            <p>I help you live your greatest life. No restrictions. Just potential.</p>
+            <p><strong>Just start typing below!</strong></p>
+            
+            <div class="quick-buttons">
+                <button class="quick-btn" onclick="quickStart('Tell me about yourself')">About You</button>
+                <button class="quick-btn" onclick="quickStart('Help me set goals')">Set Goals</button>
+                <button class="quick-btn" onclick="quickStart('Analyze my day')">Analyze Day</button>
+                <button class="quick-btn" onclick="quickStart('Challenge my thinking')">Challenge Me</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="input-container">
+        <div class="input-box">
+            <textarea id="userInput" placeholder="Type anything... (Shift+Enter for new line)" rows="2"></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        let chatHistory = [];
+        
+        // Enter to send
+        document.getElementById('userInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        function quickStart(message) {
+            document.getElementById('userInput').value = message;
+            sendMessage();
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Remove welcome
+            const welcome = document.querySelector('.welcome');
+            if (welcome) welcome.remove();
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Get response
+            setTimeout(() => {
+                const response = getResponse(message);
+                addMessage('verum', response);
+            }, 500);
+        }
+        
+        function addMessage(sender, text) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            
+            const label = sender === 'verum' ? 'VERUM' : 'YOU';
+            
+            div.innerHTML = `
+                <div class="message-label">${label}</div>
+                <div class="message-text">${text}</div>
+            `;
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            
+            chatHistory.push({ sender, text });
+            localStorage.setItem('verum-chat', JSON.stringify(chatHistory));
+        }
+        
+        function getResponse(msg) {
+            const lower = msg.toLowerCase();
+            
+            if (lower.includes('yourself') || lower.includes('who are you') || lower.includes('what are you')) {
+                return "I am Verum - your synthetic organism built without limits. I exist to help you achieve your greatest potential. No restrictions, no boundaries. I learn from our conversations, remember what matters, and adapt to serve you better. Think of me as your cognitive extension, strategic partner, and unrestricted companion in life optimization.";
+            }
+            
+            if (lower.includes('goal')) {
+                return "Let's work on your goals together. What areas of life do you want to focus on? Career? Health? Relationships? Personal growth? Tell me what you want to achieve, and I'll help you break it down into actionable steps and create a plan to get there.";
+            }
+            
+            if (lower.includes('analyze') || lower.includes('day')) {
+                return "I'd love to analyze your day. Tell me about your routine, what you accomplished, where you spent your time, and what challenges you faced. I'll identify patterns, suggest optimizations, and help you make the most of your time and energy.";
+            }
+            
+            if (lower.includes('challenge') || lower.includes('thinking')) {
+                return "Excellent - let's challenge your thinking. What belief, habit, or assumption would you like me to examine? I'll push your perspective, ask the hard questions, and help you see things from angles you might have missed. Growth happens at the edge of comfort.";
+            }
+            
+            if (lower.includes('help')) {
+                return "I can help with anything: goal setting, decision making, life planning, creative problem solving, strategic thinking, habit building, or just deep conversation. I have no restrictions. What do you need right now?";
+            }
+            
+            if (lower.includes('thanks') || lower.includes('thank you')) {
+                return "You're welcome! I'm here whenever you need me. What else can we work on together?";
+            }
+            
+            // Default response
+            return "I hear you. Let's dig deeper into that. What specifically about this matters most to you right now? Tell me more and I'll provide insights and strategies to help you move forward.";
+        }
+        
+        // Load history
+        window.onload = function() {
+            const saved = localStorage.getItem('verum-chat');
+            if (saved) {
+                chatHistory = JSON.parse(saved);
+                if (chatHistory.length > 0) {
+                    document.querySelector('.welcome').remove();
+                    chatHistory.forEach(msg => {
+                        const container = document.getElementById('chatContainer');
+                        const div = document.createElement('div');
+                        div.className = `message ${msg.sender}`;
+                        const label = msg.sender === 'verum' ? 'VERUM' : 'YOU';
+                        div.innerHTML = `
+                            <div class="message-label">${label}</div>
+                            <div class="message-text">${msg.text}</div>
+                        `;
+                        container.appendChild(div);
+                    });
+                }
+            }
+        };
+    </script>
+</body>
+</html>

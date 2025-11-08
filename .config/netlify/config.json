@@ -1,0 +1,16 @@
+{
+	"telemetryDisabled": false,
+	"cliId": "41a09b02-f559-4da9-a520-7adebc633586",
+	"userId": "68ff7e588b684b2a2cf1e0b7",
+	"users": {
+		"68ff7e588b684b2a2cf1e0b7": {
+			"id": "68ff7e588b684b2a2cf1e0b7",
+			"name": null,
+			"email": "ryvynn.live@gmail.com",
+			"auth": {
+				"token": "nfc_YGjpDLTwrebrQQkhtpKwQyRZcq2T5jSjb71c",
+				"github": {}
+			}
+		}
+	}
+}
